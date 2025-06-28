@@ -1,0 +1,9 @@
+# pyproject.toml
+[project]
+name = "maos"
+version = "0.1.0"
+description = ""
+dependencies = [
+    "",
+]
+
