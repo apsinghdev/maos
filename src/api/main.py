@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import uvicorn
 from agents.master_router import supervisor, pretty_print_messages
 import time
+from agents.memory import memory
 
 app = FastAPI()
 
@@ -21,6 +22,10 @@ def query_endpoint(request: QueryRequest):
     }):
         pretty_print_messages(chunk)
     final_message_history = chunk["supervisor"]["messages"]
+    print("user: ", request.query)
+    print("assistant: ", final_message_history[1].dict()['content'])
+    memory.save_context({"input": request.query}, {"output": final_message_history[1].dict()['content']})
+    print("memory: ", memory.load_memory_variables({})["chat_history"])
     response = final_message_history[1].dict()['content']
     print(f"time taken {time.time()-st}")
     return PlainTextResponse(response)

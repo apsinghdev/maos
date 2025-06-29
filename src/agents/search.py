@@ -1,8 +1,6 @@
 from langchain_tavily import TavilySearch
 from langgraph.prebuilt import create_react_agent
 from dotenv import load_dotenv
-from langchain_together import ChatTogether
-import os
 load_dotenv()
 
 def get_search_agent(llm):
