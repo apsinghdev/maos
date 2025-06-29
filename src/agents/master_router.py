@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 from langchain_together import ChatTogether
 load_dotenv()
 from agents.search import get_search_agent
+from agents.intent import get_intent_agent
+from agents.instruction import get_instruction_agent
+from agents.conversation import get_conversation_agent
 st = time.time()
 
 
@@ -20,6 +23,9 @@ llm = ChatTogether(
 )
 
 search_agent = get_search_agent(llm)
+intent_agent = get_intent_agent(llm)
+instruction_agent = get_instruction_agent(llm)
+conversation_agent = get_conversation_agent(llm)
 
 llm2 = ChatOllama(
     model="llama3:8b"
@@ -30,47 +36,6 @@ def pretty_print_messages(msg_chunk):
     for msg in msg_chunk.get("messages", []):
         role = msg.get("role", "unknown")
         print(f"{role}: {msg['content']}")
-
-intent_agent = create_react_agent(
-    model=llm2,
-    tools=[],
-    prompt=(
-        "You are an intent agent.\n\n"
-        "INSTRUCTIONS:\n"
-        "- Assist ONLY with intent and emotions related tasks\n"
-        "- You identify and classify the users input emotion and intent."
-        "- After you're done with your tasks, respond to the supervisor directly\n"
-        "- Respond ONLY with the results of your work, do NOT include ANY other text."
-    ),
-    name="intent_agent",
-)
-instruction_agent = create_react_agent(
-    model=llm2,
-    tools=[],
-    prompt=(
-        "You are an instructions agent.\n\n"
-        "INSTRUCTIONS:\n"
-        "- Assist ONLY with completing the instructions given by the user as input\n"
-        "- You identify and classify the user given instructions and fulfil them."
-        "- After you're done with your tasks, respond to the supervisor directly\n"
-        "- Respond ONLY with the results of your work, do NOT include ANY other text."
-    ),
-    name="instructions_agent",
-)
-
-conversation_agent = create_react_agent(
-    model=llm,
-    tools=[],
-    prompt=(
-        "You are an conversation agent.\n\n"
-        "INSTRUCTIONS:\n"
-        "- Assist ONLY with conversation flow determination decisions.\n"
-        "- You tell the conversation flow and next steps to be taken"
-        "- After you're done with your tasks, respond to the supervisor directly\n"
-        "- Respond ONLY with the results of your work, do NOT include ANY other text."
-    ),
-    name="conversation_agent",
-) 
 
 supervisor = create_supervisor(
     model=llm,
@@ -88,5 +53,3 @@ supervisor = create_supervisor(
     add_handoff_back_messages=True,
     output_mode="full_history",
 ).compile()
-
-# 
