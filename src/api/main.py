@@ -4,17 +4,21 @@ from pydantic import BaseModel
 import uvicorn
 from agents.master_router import supervisor, pretty_print_messages
 import time
-from agents.memory import memory
+from agents.memory import get_memory_agent
+from agents.master_router import llm
 
 app = FastAPI()
 
 class QueryRequest(BaseModel):
     query: str
+    # Optionally, add session_id here if you want to support per-user sessions
+    # session_id: str
 
 @app.post("/query")
 def query_endpoint(request: QueryRequest):
     st = time.time()
-    # Run the supervisor with the user prompt
+    session_id = "default-session" 
+    memory_agent, memory = get_memory_agent(llm=llm, session_id=session_id)
     for chunk in supervisor.stream({
         "messages": [
             {"role": "user", "content": request.query}

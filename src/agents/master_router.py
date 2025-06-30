@@ -14,7 +14,6 @@ from agents.instruction import get_instruction_agent
 from agents.conversation import get_conversation_agent
 from agents.memory import get_memory_agent
 st = time.time()
-from agents.memory import memory
 
 
 llm = ChatTogether(
@@ -27,7 +26,7 @@ search_agent = get_search_agent(llm)
 intent_agent = get_intent_agent(llm)
 instruction_agent = get_instruction_agent(llm)
 conversation_agent = get_conversation_agent(llm)
-memory_agent = get_memory_agent(llm)
+memory_agent, _ = get_memory_agent(llm, session_id="default-session")
 
 llm2 = ChatOllama(
     model="llama3:8b"
