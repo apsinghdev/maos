@@ -2,7 +2,7 @@
 
 ## Architecture
 
-[architecture](./architecture.png)
+![architecture](./architecture.png)
 
 ## Codebase
 
