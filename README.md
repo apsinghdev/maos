@@ -1,5 +1,9 @@
 # Multi-Agent Orchestration System
 
+## Demo
+
+![maos Demo](./maos-demo.gif)
+
 ## Architecture
 
 ![architecture](./architecture.png)
