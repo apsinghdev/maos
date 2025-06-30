@@ -2,7 +2,7 @@
 
 ## Demo
 
-![maos Demo](./maos-demo.gif)
+![maos Demo](./m-demo.gif)
 
 ## Architecture
 
