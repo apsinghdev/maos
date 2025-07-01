@@ -41,6 +41,24 @@
 
 3. Run the app: `make run` or `uvicorn src.api.main:app --host 127.0.0.1 --port 6000 --reload`.
 
+## Features
+
+#### agents:
+
+> master router agent
+> search agent
+> intent agent
+> instruction agent
+> conversation agent
+> memory agent
+
+#### toppings:
+
+- parallel execution
+- worker threads for agent isolation
+- caching for performance optimization
+- circuit breakers for failure handling
+
 ## Tweet
 
 https://twitter.com/ajeetunc/status/1939904295044010472
