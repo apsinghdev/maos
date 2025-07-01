@@ -45,12 +45,12 @@
 
 #### agents:
 
-> master router agent
-> search agent
-> intent agent
-> instruction agent
-> conversation agent
-> memory agent
+1. **master router agent**: coordinates all other agents
+2. **search agent**: performs internet search when needed
+3. **intent agent**: identifies user emotion and intent
+4. **instruction agent**: detects if message contains instructions
+5. **conversation agent**: determines conversation flow decisions
+6. **memory agent**: retrieves relevant chat history/context
 
 #### toppings:
 
